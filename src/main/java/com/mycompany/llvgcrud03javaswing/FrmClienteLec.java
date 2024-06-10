@@ -4,11 +4,19 @@
  */
 package com.mycompany.llvgcrud03javaswing;
 
+import Utilerias.OpcionesCRUD;
+
 /**
+
+
+/**
+
  *
  * @author MINEDUCYT
  */
 public class FrmClienteLec extends javax.swing.JFrame {
+  private OpcionesCRUD opcionCRUD;
+
 
     /**
      * Creates new form FrmClienteLec
@@ -29,16 +37,23 @@ public class FrmClienteLec extends javax.swing.JFrame {
         jTxtNombre = new javax.swing.JTextField();
         jBtnBuscar = new javax.swing.JButton();
         jBtnIrACrear = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableClientes = new javax.swing.JTable();
         jBtnEditar = new javax.swing.JButton();
         jBtnEliminar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProductos = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(204, 255, 204));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.SE_RESIZE_CURSOR));
+
+        jBtnBuscar.setBackground(new java.awt.Color(204, 204, 255));
+        jBtnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnBuscar.setText("Buscar");
 
+        jBtnIrACrear.setBackground(new java.awt.Color(204, 0, 255));
+        jBtnIrACrear.setForeground(new java.awt.Color(0, 0, 0));
         jBtnIrACrear.setText("Ir a Crear");
         jBtnIrACrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -46,18 +61,17 @@ public class FrmClienteLec extends javax.swing.JFrame {
             }
         });
 
-        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jTableClientes);
-
+        jBtnEditar.setBackground(new java.awt.Color(0, 204, 102));
+        jBtnEditar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnEditar.setText("Editar");
+        jBtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEditarActionPerformed(evt);
+            }
+        });
 
+        jBtnEliminar.setBackground(new java.awt.Color(255, 102, 102));
+        jBtnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnEliminar.setText("Eliminar");
         jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,12 +79,34 @@ public class FrmClienteLec extends javax.swing.JFrame {
             }
         });
 
+        jBtnCancelar.setBackground(new java.awt.Color(0, 204, 204));
+        jBtnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCancelarActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Nombre Cliente");
+        jLabel1.setText("Nombre del Cliente");
 
         jLabel4.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
         jLabel4.setText("Registro de Clientes");
+
+        jTableProductos.setBackground(new java.awt.Color(255, 204, 255));
+        jTableProductos.setForeground(new java.awt.Color(204, 204, 255));
+        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableProductos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,27 +116,26 @@ public class FrmClienteLec extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBtnEditar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtnEliminar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtnCancelar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTxtNombre)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jBtnBuscar)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jBtnIrACrear))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtnIrACrear))
+                            .addComponent(jScrollPane2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(229, 229, 229)
                         .addComponent(jLabel4)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,8 +149,8 @@ public class FrmClienteLec extends javax.swing.JFrame {
                     .addComponent(jBtnIrACrear)
                     .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnEditar)
                     .addComponent(jBtnEliminar)
@@ -128,14 +163,32 @@ public class FrmClienteLec extends javax.swing.JFrame {
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
+        opcionCRUD = OpcionesCRUD.ELIMINAR;
+        FrmClientes frmclientes = new FrmClientes(opcionCRUD);
+        frmclientes.setTitle("Eliminar factura");
+        frmclientes.setVisible(true );
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     private void jBtnIrACrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIrACrearActionPerformed
         // TODO add your handling code here:
-        FrmClientes frmclientes = new FrmClientes();
+    opcionCRUD = OpcionesCRUD.CREAR;
+        FrmClientes frmclientes = new FrmClientes(opcionCRUD);
         frmclientes.setTitle("Crear Cliente");
         frmclientes.setVisible(true );
     }//GEN-LAST:event_jBtnIrACrearActionPerformed
+
+    private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
+        // TODO add your handling code here:
+         opcionCRUD = OpcionesCRUD.MODIFICAR;
+        FrmClientes frmclientes = new FrmClientes(opcionCRUD);
+        frmclientes.setTitle("Editar cliente");
+        frmclientes.setVisible(true );
+    }//GEN-LAST:event_jBtnEditarActionPerformed
+
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,8 +233,8 @@ public class FrmClienteLec extends javax.swing.JFrame {
     private javax.swing.JButton jBtnIrACrear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableClientes;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableProductos;
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
 }

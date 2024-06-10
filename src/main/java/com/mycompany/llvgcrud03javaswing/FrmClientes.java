@@ -4,16 +4,23 @@
  */
 package com.mycompany.llvgcrud03javaswing;
 
+import Utilerias.OpcionesCRUD;
+import static Utilerias.OpcionesCRUD.CREAR;
+import static Utilerias.OpcionesCRUD.ELIMINAR;
+import static Utilerias.OpcionesCRUD.MODIFICAR;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MINEDUCYT
  */
 public class FrmClientes extends javax.swing.JFrame {
-
+  private OpcionesCRUD opcionCRUD;
     /**
      * Creates new form FrmClientes
      */
-    public FrmClientes() {
+    public FrmClientes(OpcionesCRUD opcion) {
+        this.opcionCRUD= opcion;
         initComponents();
     }
 
@@ -46,6 +53,11 @@ public class FrmClientes extends javax.swing.JFrame {
         jLabel7.setText("Ciudad");
 
         jBtnGuardar.setText("Guardar");
+        jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnGuardarActionPerformed(evt);
+            }
+        });
 
         jBtnCancelar.setText("Cancelar");
 
@@ -150,40 +162,34 @@ public class FrmClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
+       if (null != opcionCRUD) // TODO add your handling code here:
+            switch (opcionCRUD) {
+                case CREAR:
+                    JOptionPane.showMessageDialog( this,"Guardar registrar",
+                            "Crear", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    break;
+                case MODIFICAR:
+                    JOptionPane.showMessageDialog( this,"Guardar registrar",
+                            "Modificar", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    break;
+                case ELIMINAR:
+                   JOptionPane.showMessageDialog( this,"Guardar registrar",
+                            "Eliminar", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    break;
+                default:
+                    break;
+            }  
+    }//GEN-LAST:event_jBtnGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmClientes().setVisible(true);
-            }
-        });
-    }
+    
+      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;

@@ -1,5 +1,11 @@
 package com.mycompany.llvgcrud03javaswing;
 
+import Utilerias.OpcionesCRUD;
+import static Utilerias.OpcionesCRUD.CREAR;
+import static Utilerias.OpcionesCRUD.ELIMINAR;
+import static Utilerias.OpcionesCRUD.MODIFICAR;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -10,11 +16,12 @@ package com.mycompany.llvgcrud03javaswing;
  * @author MINEDUCYT
  */
 public class FrmFactura extends javax.swing.JFrame {
-
+  private OpcionesCRUD opcionCRUD;
     /**
      * Creates new form FrmFactura
      */
-    public FrmFactura() {
+    public FrmFactura(OpcionesCRUD opcion) {
+        this.opcionCRUD= opcion;
         initComponents();
     }
 
@@ -46,6 +53,11 @@ public class FrmFactura extends javax.swing.JFrame {
         jLabel3.setText("Nombre del cliente ");
 
         jBtnGuardar.setText("Guardar");
+        jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnGuardarActionPerformed(evt);
+            }
+        });
 
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,40 +137,33 @@ public class FrmFactura extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
+       
+        if (null != opcionCRUD) // TODO add your handling code here:
+            switch (opcionCRUD) {
+                case CREAR:
+                    JOptionPane.showMessageDialog( this,"Guardar registrar",
+                            "Crear", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    break;
+                case MODIFICAR:
+                    JOptionPane.showMessageDialog( this,"Guardar registrar",
+                            "Modificar", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    break;
+                case ELIMINAR:
+                   JOptionPane.showMessageDialog( this,"Guardar registrar",
+                            "Eliminar", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    break;
+                default:
+                    break;
+            }
+    }//GEN-LAST:event_jBtnGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmFactura().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
