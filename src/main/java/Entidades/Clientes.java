@@ -10,9 +10,6 @@ package Entidades;
  */
 public class Clientes {
 
-    public static void add(Clientes clientes) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     private int ClienteID;
     private String Nombre;
     private String Apellido;

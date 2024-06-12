@@ -4,7 +4,12 @@
  */
 package com.mycompany.llvgcrud03javaswing;
 
+import AccesoaDatos.ClientesDAL;
+import Entidades.Clientes;
 import Utilerias.OpcionesCRUD;
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
 
@@ -15,7 +20,7 @@ import Utilerias.OpcionesCRUD;
  * @author MINEDUCYT
  */
 public class FrmClienteLec extends javax.swing.JFrame {
-  private OpcionesCRUD opcionCRUD;
+ private OpcionesCRUD opcionCRUD;
 
 
     /**
@@ -43,7 +48,7 @@ public class FrmClienteLec extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableProductos = new javax.swing.JTable();
+        jTableClientes = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setCursor(new java.awt.Cursor(java.awt.Cursor.SE_RESIZE_CURSOR));
@@ -51,6 +56,11 @@ public class FrmClienteLec extends javax.swing.JFrame {
         jBtnBuscar.setBackground(new java.awt.Color(204, 204, 255));
         jBtnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnBuscar.setText("Buscar");
+        jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarActionPerformed(evt);
+            }
+        });
 
         jBtnIrACrear.setBackground(new java.awt.Color(204, 0, 255));
         jBtnIrACrear.setForeground(new java.awt.Color(0, 0, 0));
@@ -93,9 +103,9 @@ public class FrmClienteLec extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
         jLabel4.setText("Registro de Clientes");
 
-        jTableProductos.setBackground(new java.awt.Color(255, 204, 255));
-        jTableProductos.setForeground(new java.awt.Color(204, 204, 255));
-        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableClientes.setBackground(new java.awt.Color(255, 204, 255));
+        jTableClientes.setForeground(new java.awt.Color(0, 0, 0));
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -106,7 +116,7 @@ public class FrmClienteLec extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        jScrollPane2.setViewportView(jTableProductos);
+        jScrollPane2.setViewportView(jTableClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,25 +172,24 @@ public class FrmClienteLec extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
-        // TODO add your handling code here:
+     
         opcionCRUD = OpcionesCRUD.ELIMINAR;
-        FrmClientes frmclientes = new FrmClientes(opcionCRUD);
+        FrmClientes frmclientes = new FrmClientes(opcionCRUD,obtenerDatos());
         frmclientes.setTitle("Eliminar factura");
         frmclientes.setVisible(true );
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     private void jBtnIrACrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIrACrearActionPerformed
-        // TODO add your handling code here:
-    opcionCRUD = OpcionesCRUD.CREAR;
-        FrmClientes frmclientes = new FrmClientes(opcionCRUD);
+     
+         opcionCRUD = OpcionesCRUD.CREAR;
+        FrmClientes frmclientes = new FrmClientes(opcionCRUD, new Clientes());
         frmclientes.setTitle("Crear Cliente");
         frmclientes.setVisible(true );
     }//GEN-LAST:event_jBtnIrACrearActionPerformed
 
     private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
-        // TODO add your handling code here:
-         opcionCRUD = OpcionesCRUD.MODIFICAR;
-        FrmClientes frmclientes = new FrmClientes(opcionCRUD);
+       opcionCRUD = OpcionesCRUD.MODIFICAR;
+        FrmClientes frmclientes = new FrmClientes(opcionCRUD,obtenerDatos());
         frmclientes.setTitle("Editar cliente");
         frmclientes.setVisible(true );
     }//GEN-LAST:event_jBtnEditarActionPerformed
@@ -189,6 +198,42 @@ public class FrmClienteLec extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
+        // TODO add your handling code here:
+        Clientes producto = new Clientes();
+        producto.setNombre(jTxtNombre.getText());
+        ArrayList<Clientes> productos = ClientesDAL.buscar(producto);
+        String[] columnas = {"ID Cliente", "Nombre", "Apellido", "Telefono", "Direccion","Ciudad","Pais"};
+        Object[][] datos = new Object[productos.size()][7];
+        for (int i = 0; i < productos.size(); i++) {
+            Clientes item = productos.get(i);
+            datos[i][0] = item.getClienteID();
+            datos[i][1] = item.getNombre();
+            datos[i][2] = item.getApellido();
+            datos[i][3] = item.getTelefono();
+            datos[i][4] = item.getDireccion();
+             datos[i][5] = item.getCiudad();
+              datos[i][6] = item.getPais();
+           
+      
+        }
+        DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
+        jTableClientes.setModel(modelTable);
+
+    }//GEN-LAST:event_jBtnBuscarActionPerformed
+ private Clientes obtenerDatos() {
+        Clientes producto = new Clientes();
+        int row = jTableClientes.getSelectedRow();
+        producto.setClienteID((int) jTableClientes.getValueAt(row, 0));
+        producto.setNombre(jTableClientes.getValueAt(row, 1).toString());
+        producto.setApellido(jTableClientes.getValueAt(row, 2).toString());
+        producto.setTelefono((int) jTableClientes.getValueAt(row, 3));
+         producto.setDireccion(jTableClientes.getValueAt(row, 4).toString());
+         producto.setCiudad(jTableClientes.getValueAt(row, 5).toString());
+         producto.setPais(jTableClientes.getValueAt(row, 6).toString());
+        return producto;
+    }
 
     /**
      * @param args the command line arguments
@@ -223,6 +268,7 @@ public class FrmClienteLec extends javax.swing.JFrame {
                 new FrmClienteLec().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -234,7 +280,7 @@ public class FrmClienteLec extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableProductos;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
 }

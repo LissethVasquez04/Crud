@@ -20,24 +20,22 @@ import java.util.ArrayList;
 public class FacturasDAL {
     
      public static int crear(Facturas factura) {
-        try (Connection conn = ComunDB.obtenerConexion()) {
-
-            String sql = "INSERT INTO Productos (Nombre, Descripcion, Precio, CategoriaID) VALUES (?, ?, ?, ?)";
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                 
-                statement.setDate(1, (Date) factura.getFechaFactura());
-                statement.setInt(2, factura.getClienteID());
-                statement.setBigDecimal(3, factura.getTotal());
-             
-                int rowsAffected = statement.executeUpdate();
-                return rowsAffected;
-            } catch (SQLException e) {
-                throw new RuntimeException("Error al crear el producto", e);
-            }
+    try (Connection conn = ComunDB.obtenerConexion()) {
+        String sql = "INSERT INTO Facturas (FechaFactura, ClienteID, Total) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setDate(1, new java.sql.Date(factura.getFechaFactura().getTime())); // Se convierte LocalDate a java.sql.Date
+            statement.setInt(2, factura.getClienteID());
+            statement.setBigDecimal(3, factura.getTotal());
+         
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected;
         } catch (SQLException e) {
-            throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
+            throw new RuntimeException("Error al crear la factura", e);
         }
+    } catch (SQLException e) {
+        throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
     }
+}
 
     public static int modificar(Facturas factura) {
         try (Connection conn = ComunDB.obtenerConexion()) {
@@ -51,7 +49,7 @@ public class FacturasDAL {
     int rowsAffected = statement.executeUpdate();
     return rowsAffected;
             } catch (SQLException e) {
-                throw new RuntimeException("Error al crear el producto", e);
+                throw new RuntimeException("Error al crear el Factura", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
@@ -67,7 +65,7 @@ public class FacturasDAL {
                 int rowsAffected = statement.executeUpdate();
                 return rowsAffected;
             } catch (SQLException e) {
-                throw new RuntimeException("Error al crear el producto", e);
+                throw new RuntimeException("Error al crear el Factura", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);

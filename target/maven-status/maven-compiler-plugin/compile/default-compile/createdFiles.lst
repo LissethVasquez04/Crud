@@ -5,6 +5,7 @@ com\mycompany\llvgcrud03javaswing\FrmClienteLec$1.class
 com\mycompany\llvgcrud03javaswing\FrmFactura$3.class
 com\mycompany\llvgcrud03javaswing\FrmInicio$2.class
 com\mycompany\llvgcrud03javaswing\FrmClientes.class
+com\mycompany\llvgcrud03javaswing\FrmClienteLec$6.class
 com\mycompany\llvgcrud03javaswing\FrmClienteLec$2.class
 com\mycompany\llvgcrud03javaswing\LLVGCRUD03JAVASWING.class
 com\mycompany\llvgcrud03javaswing\FrmClientes$2.class
@@ -19,6 +20,7 @@ com\mycompany\llvgcrud03javaswing\FrmInicio$1.class
 AccesoaDatos\ClientesDAL.class
 com\mycompany\llvgcrud03javaswing\FrmFactura$4.class
 com\mycompany\llvgcrud03javaswing\FrmClienteLec$5.class
+com\mycompany\llvgcrud03javaswing\FrmClientes$3.class
 com\mycompany\llvgcrud03javaswing\FrmFacturaclienteLec$3.class
 Entidades\Facturas.class
 com\mycompany\llvgcrud03javaswing\FrmFactura$1.class
@@ -28,6 +30,7 @@ com\mycompany\llvgcrud03javaswing\FrmInicio$5.class
 com\mycompany\llvgcrud03javaswing\FrmClienteLec$3.class
 com\mycompany\llvgcrud03javaswing\FrmInicio$3.class
 com\mycompany\llvgcrud03javaswing\FrmClientes$1.class
+com\mycompany\llvgcrud03javaswing\FrmFacturaclienteLec$6.class
 AccesoaDatos\ComunDB.class
 com\mycompany\llvgcrud03javaswing\FrmFacturaclienteLec$1.class
 Utilerias\OpcionesCRUD.class

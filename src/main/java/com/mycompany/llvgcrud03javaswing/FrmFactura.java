@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 
 /*
@@ -37,6 +36,7 @@ public class FrmFactura extends javax.swing.JFrame {
       ArrayList<Clientes> clientes =ClientesDAL.obtenerTodos();
       DefaultComboBoxModel<String> modelCombox = new DefaultComboBoxModel(clientes.toArray(new Clientes [clientes.size()]));
         JComboClientes.setModel(modelCombox);
+        
     }
 
     /**
@@ -199,6 +199,7 @@ public class FrmFactura extends javax.swing.JFrame {
     private void asingarDatos(Facturas facturas) {
     jTxtfecha.setText(facturas.getFechaFactura().toString());
     int clienteID = facturas.getClienteID();
+     jTxtTotal.setText(facturas.getTotal().toString());
     // Buscar el cliente correspondiente en el combo box
     for (int i = 0; i < JComboClientes.getItemCount(); i++) {
     Clientes cliente = (Clientes) JComboClientes.getSelectedItem();
@@ -207,7 +208,7 @@ public class FrmFactura extends javax.swing.JFrame {
         JComboClientes.setSelectedIndex(i);
         break;
     }
-    jTxtTotal.setText(facturas.getTotal().toString());
+   
     }
     }
     

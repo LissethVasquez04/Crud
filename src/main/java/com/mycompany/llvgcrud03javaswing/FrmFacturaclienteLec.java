@@ -4,7 +4,11 @@
  */
 package com.mycompany.llvgcrud03javaswing;
 
+import AccesoaDatos.FacturasDAL;
+import Entidades.Facturas;
 import Utilerias.OpcionesCRUD;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,7 +41,7 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
         jBtnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableProductos = new javax.swing.JTable();
+        jTableFacturas = new javax.swing.JTable();
 
         setTitle("Buscador factura cliente");
 
@@ -53,6 +57,11 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
         jBtnBuscar.setBackground(new java.awt.Color(204, 204, 255));
         jBtnBuscar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnBuscar.setText("Buscar");
+        jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarActionPerformed(evt);
+            }
+        });
 
         jBtnIrACrear.setBackground(new java.awt.Color(204, 0, 255));
         jBtnIrACrear.setForeground(new java.awt.Color(0, 0, 0));
@@ -92,9 +101,9 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre Cliente");
 
-        jTableProductos.setBackground(new java.awt.Color(255, 204, 255));
-        jTableProductos.setForeground(new java.awt.Color(204, 204, 255));
-        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableFacturas.setBackground(new java.awt.Color(255, 204, 255));
+        jTableFacturas.setForeground(new java.awt.Color(204, 204, 255));
+        jTableFacturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -105,7 +114,7 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        jScrollPane2.setViewportView(jTableProductos);
+        jScrollPane2.setViewportView(jTableFacturas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,6 +203,10 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
         frmfactura.setVisible(true );
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
+    private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
+        
+    }//GEN-LAST:event_jBtnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,7 +220,7 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableProductos;
+    private javax.swing.JTable jTableFacturas;
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
 }

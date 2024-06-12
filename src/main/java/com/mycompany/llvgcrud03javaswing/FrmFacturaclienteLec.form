@@ -105,6 +105,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnBuscarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtnIrACrear">
       <Properties>
@@ -174,7 +177,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTableProductos">
+        <Component class="javax.swing.JTable" name="jTableFacturas">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="ff" type="rgb"/>
