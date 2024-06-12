@@ -63,6 +63,8 @@ private OpcionesCRUD opcionCRUD;
 
         jLabel7.setText("Ciudad");
 
+        jBtnGuardar.setBackground(new java.awt.Color(255, 153, 255));
+        jBtnGuardar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnGuardar.setText("Guardar");
         jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +72,8 @@ private OpcionesCRUD opcionCRUD;
             }
         });
 
+        jBtnCancelar.setBackground(new java.awt.Color(255, 102, 102));
+        jBtnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
