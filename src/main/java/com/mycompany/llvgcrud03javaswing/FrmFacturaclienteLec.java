@@ -10,12 +10,12 @@ import Utilerias.OpcionesCRUD;
  *
  * @author MINEDUCYT
  */
-public class FrmFacturacliente extends javax.swing.JFrame {
+public class FrmFacturaclienteLec extends javax.swing.JFrame {
   private OpcionesCRUD opcionCRUD;
     /**
      * Creates new form FrmFacturacliente
      */
-    public FrmFacturacliente() {
+    public FrmFacturaclienteLec() {
         initComponents();
     }
 

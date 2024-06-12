@@ -5,6 +5,16 @@ import static Utilerias.OpcionesCRUD.CREAR;
 import static Utilerias.OpcionesCRUD.ELIMINAR;
 import static Utilerias.OpcionesCRUD.MODIFICAR;
 import javax.swing.JOptionPane;
+import AccesoaDatos.ClientesDAL;
+import AccesoaDatos.FacturasDAL;
+import Entidades.Clientes;
+import Entidades.Facturas;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,12 +27,16 @@ import javax.swing.JOptionPane;
  */
 public class FrmFactura extends javax.swing.JFrame {
   private OpcionesCRUD opcionCRUD;
+
     /**
      * Creates new form FrmFactura
      */
     public FrmFactura(OpcionesCRUD opcion) {
         this.opcionCRUD= opcion;
         initComponents();
+      ArrayList<Clientes> clientes =ClientesDAL.obtenerTodos();
+      DefaultComboBoxModel<String> modelCombox = new DefaultComboBoxModel(clientes.toArray(new Clientes [clientes.size()]));
+        JComboClientes.setModel(modelCombox);
     }
 
     /**
@@ -37,12 +51,12 @@ public class FrmFactura extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTxtNombre = new javax.swing.JTextField();
+        jTxtfecha = new javax.swing.JTextField();
         jTxtTotal = new javax.swing.JTextField();
         jBtnGuardar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComCliente = new javax.swing.JComboBox<>();
+        JComboClientes = new javax.swing.JComboBox<>();
 
         setTitle("Factura cliente");
 
@@ -69,7 +83,12 @@ public class FrmFactura extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
         jLabel4.setText("Facturas");
 
-        jComCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JComboClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JComboClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JComboClientesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,7 +99,7 @@ public class FrmFactura extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2)
                                     .addGap(18, 18, 18)
@@ -88,19 +107,19 @@ public class FrmFactura extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTxtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jBtnGuardar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                                     .addComponent(jBtnCancelar)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(JComboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addComponent(jLabel4)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,14 +129,14 @@ public class FrmFactura extends javax.swing.JFrame {
                         .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTxtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel4)))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JComboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -142,38 +161,137 @@ public class FrmFactura extends javax.swing.JFrame {
         if (null != opcionCRUD) // TODO add your handling code here:
             switch (opcionCRUD) {
                 case CREAR:
-                    JOptionPane.showMessageDialog( this,"Guardar registrar",
-                            "Crear", JOptionPane.INFORMATION_MESSAGE);
+                    crearReg();
                     this.setVisible(false);
                     break;
                 case MODIFICAR:
-                    JOptionPane.showMessageDialog( this,"Guardar registrar",
-                            "Modificar", JOptionPane.INFORMATION_MESSAGE);
+                    modificarReg();
                     this.setVisible(false);
                     break;
                 case ELIMINAR:
-                   JOptionPane.showMessageDialog( this,"Guardar registrar",
-                            "Eliminar", JOptionPane.INFORMATION_MESSAGE);
+                    eliminarReg();
                     this.setVisible(false);
                     break;
                 default:
                     break;
             }
+            
     }//GEN-LAST:event_jBtnGuardarActionPerformed
+
+    private Facturas obtenerDatos() throws ParseException {
+    Facturas facturas = new Facturas();
+    // Parse date from UI component
+    SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    java.util.Date parsedDate = inputDateFormat.parse(jTxtfecha.getText());
+    facturas.setFechaFactura(parsedDate);
+
+    // Set ClienteID from UI component
+    Clientes cliente = (Clientes) JComboClientes.getSelectedItem();
+    facturas.setClienteID(cliente.getClienteID());
+
+    // Set Total from UI component
+    BigDecimal total = new BigDecimal(jTxtTotal.getText());
+    facturas.setTotal(total);
+    
+    return facturas;
+  }
+
+    private void asingarDatos(Facturas facturas) {
+    jTxtfecha.setText(facturas.getFechaFactura().toString());
+    int clienteID = facturas.getClienteID();
+    // Buscar el cliente correspondiente en el combo box
+    for (int i = 0; i < JComboClientes.getItemCount(); i++) {
+    Clientes cliente = (Clientes) JComboClientes.getSelectedItem();
+    if (cliente.getClienteID() == clienteID) {
+        // Seleccionar el cliente en el combo box
+        JComboClientes.setSelectedIndex(i);
+        break;
+    }
+    jTxtTotal.setText(facturas.getTotal().toString());
+    }
+    }
+    
+    
+
+    private void crearReg() {
+        try {
+          Facturas facturas = obtenerDatos();
+            int result = FacturasDAL.crear(facturas);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "La factura fue registrada existosamente", "CREAR FACTURA",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Sucedio un error al crear la factura", "ERROR FACTURA",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "ERROR FACTURA",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void modificarReg() {
+        try {
+            Facturas facturas = obtenerDatos();
+            int result = FacturasDAL.modificar(facturas);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "La factura fue modificada existosamente", "MODIFICAR FACTURA",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Sucedio un error al modificar la factura", "ERROR FACTURA",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "ERROR FACTURA",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void eliminarReg() {
+        try {
+             Facturas facturas = obtenerDatos();
+            int result = FacturasDAL.eliminar(facturas);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "la factura fue eliminada existosamente", "ELIMINAR FACTURA",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Sucedio un error al eliminar el factura", "ERROR FACTURA",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "ERROR FACTURA",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    private void JComboClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JComboClientesActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> JComboClientes;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnGuardar;
-    private javax.swing.JComboBox<String> jComCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTxtNombre;
     private javax.swing.JTextField jTxtTotal;
+    private javax.swing.JTextField jTxtfecha;
     // End of variables declaration//GEN-END:variables
 }

@@ -91,7 +91,7 @@ public class FrmInicio extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
         // TODO add your handling code here:
-        FrmFacturacliente frmfacturacliente = new FrmFacturacliente();
+        FrmFacturaclienteLec frmfacturacliente = new FrmFacturaclienteLec();
         frmfacturacliente.setVisible(true); 
         
         
@@ -160,7 +160,7 @@ public class FrmInicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 
-    private FrmFacturacliente FrmFacturacliente() {
+    private FrmFacturaclienteLec FrmFacturacliente() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
