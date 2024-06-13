@@ -18,19 +18,19 @@ import javax.swing.JOptionPane;
  * @author MINEDUCYT
  */
 public class FrmClientes extends javax.swing.JFrame {
-private OpcionesCRUD opcionCRUD;
+  private OpcionesCRUD opcionCRUD;
   private Clientes clienteactual = new Clientes();
      private HashMap<Integer, Clientes> mapcliente = new HashMap<Integer,Clientes>();
     /**
      * Creates new form FrmClientes
      */
-    public FrmClientes(OpcionesCRUD opcion, Clientes clientes) {
+    public FrmClientes(OpcionesCRUD opcion, Clientes cliente) {
         this.opcionCRUD= opcion;
         initComponents();
         
-       if (opcion != OpcionesCRUD.CREAR) {
-            asingarDatos(clientes);
-            clienteactual = clientes;
+         if (opcion != OpcionesCRUD.CREAR) {
+            asingarDatos(cliente);
+            clienteactual = cliente;
         }
     }
 

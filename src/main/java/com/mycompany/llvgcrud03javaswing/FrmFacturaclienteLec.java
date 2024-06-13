@@ -4,11 +4,16 @@
  */
 package com.mycompany.llvgcrud03javaswing;
 
+
 import AccesoaDatos.FacturasDAL;
+import Entidades.Clientes;
 import Entidades.Facturas;
 import Utilerias.OpcionesCRUD;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
 
 /**
  *
@@ -21,6 +26,7 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
      */
     public FrmFacturaclienteLec() {
         initComponents();
+        jDateChooserFechaFact.setDateFormatString("yyyy-MM-dd");
     }
 
     /**
@@ -33,7 +39,6 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
-        jTxtNombre = new javax.swing.JTextField();
         jBtnBuscar = new javax.swing.JButton();
         jBtnIrACrear = new javax.swing.JButton();
         jBtnEditar = new javax.swing.JButton();
@@ -42,17 +47,13 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableFacturas = new javax.swing.JTable();
+        jDateChooserFechaFact = new com.toedter.calendar.JDateChooser();
+        jBtnBuscarTodos = new javax.swing.JButton();
 
         setTitle("Buscador factura cliente");
 
         jLabel4.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
         jLabel4.setText("Factura de Clientes");
-
-        jTxtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtNombreActionPerformed(evt);
-            }
-        });
 
         jBtnBuscar.setBackground(new java.awt.Color(204, 204, 255));
         jBtnBuscar.setForeground(new java.awt.Color(0, 0, 0));
@@ -99,7 +100,7 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nombre Cliente");
+        jLabel1.setText("Decha Factura");
 
         jTableFacturas.setBackground(new java.awt.Color(255, 204, 255));
         jTableFacturas.setForeground(new java.awt.Color(204, 204, 255));
@@ -115,6 +116,15 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(jTableFacturas);
+
+        jBtnBuscarTodos.setBackground(new java.awt.Color(204, 204, 255));
+        jBtnBuscarTodos.setForeground(new java.awt.Color(0, 0, 0));
+        jBtnBuscarTodos.setText("Todos");
+        jBtnBuscarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarTodosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,14 +146,16 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
                                 .addComponent(jBtnCancelar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(jDateChooserFechaFact, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(105, 105, 105)
+                                .addComponent(jBtnBuscarTodos)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtnBuscar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtnIrACrear))
                             .addComponent(jScrollPane2))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,32 +163,86 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jBtnBuscar)
-                    .addComponent(jBtnIrACrear)
-                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnEditar)
-                    .addComponent(jBtnEliminar)
-                    .addComponent(jBtnCancelar))
-                .addGap(55, 55, 55))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jBtnBuscar)
+                            .addComponent(jBtnIrACrear)
+                            .addComponent(jBtnBuscarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtnEditar)
+                            .addComponent(jBtnEliminar)
+                            .addComponent(jBtnCancelar))
+                        .addGap(55, 55, 55))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDateChooserFechaFact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtNombreActionPerformed
+    
+    private Facturas obtenerDatosFecha() {
+     Facturas pedido = new Facturas();
+    Date fechaPedido = jDateChooserFechaFact.getDate();
 
+    if (fechaPedido == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha.", "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
+
+    pedido.setFechaFactura(fechaPedido);
+    return pedido;   
+    }
+    
+     private Facturas obtenerDatos() {
+    Facturas factura = new Facturas();
+    int row = jTableFacturas.getSelectedRow();
+
+    if (row == -1) { // Check if a row is selected
+        return null;
+    }
+
+    factura.setFacturaID((int) jTableFacturas.getValueAt(row, 0)); // Safe cast for ID
+
+    // Handle FechaFactura retrieval and conversion
+    Object fechaValue = jTableFacturas.getValueAt(row, 1);
+    if (fechaValue instanceof java.util.Date) {
+        java.util.Date utilDate = (java.util.Date) fechaValue; // Cast to java.util.Date
+        factura.setFechaFactura(new java.sql.Date(utilDate.getTime()));
+    } else {
+        // Handle the case where fechaValue is not a java.util.Date (e.g., it's a string)
+        // You might need to parse it using SimpleDateFormat
+        JOptionPane.showMessageDialog(this, "Invalid date format in the table.", "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
+
+    factura.setTotal((BigDecimal) jTableFacturas.getValueAt(row, 3)); // Safe cast for total
+
+    // Retrieve ClienteID (handle null value if needed)
+    Object clienteIDValue = jTableFacturas.getValueAt(row, 2);
+    if (clienteIDValue instanceof Integer) {
+        factura.setClienteID((int) clienteIDValue);
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid cliente ID format in the table.", "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
+
+    Clientes cliente = new Clientes();
+    cliente.setNombre(jTableFacturas.getValueAt(row, 4).toString()); 
+    cliente.setClienteID(factura.getClienteID());
+    factura.setClientes(cliente);
+    
+    return factura;
+}
     private void jBtnIrACrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIrACrearActionPerformed
-        // TODO add your handling code here:
-         opcionCRUD = OpcionesCRUD.CREAR;
-        FrmFactura frmfactura = new FrmFactura(opcionCRUD);
+      opcionCRUD = OpcionesCRUD.CREAR;
+        FrmFactura frmfactura = new FrmFactura(opcionCRUD, new Facturas());
         frmfactura.setTitle("Crear Factura");
         frmfactura.setVisible(true );
                 
@@ -189,23 +255,86 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
 
     private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
         // TODO add your handling code here:
-         opcionCRUD = OpcionesCRUD.MODIFICAR;
-        FrmFactura frmfactura = new FrmFactura(opcionCRUD);
-        frmfactura.setTitle("editar factura");
-        frmfactura.setVisible(true );
+  int row = jTableFacturas.getSelectedRow();
+        if (row != -1) {
+            opcionCRUD = OpcionesCRUD.MODIFICAR;
+
+            FrmFactura frmFacturasEsc = new FrmFactura(opcionCRUD, obtenerDatos());
+            frmFacturasEsc.setTitle("Modificar Factura");
+            frmFacturasEsc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccionar una fila", "Fcatura",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnEditarActionPerformed
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
-        // TODO add your handling code here:
-         opcionCRUD = OpcionesCRUD.ELIMINAR;
-          FrmFactura frmfactura = new FrmFactura(opcionCRUD);
-        frmfactura.setTitle("Eliminar factura");
-        frmfactura.setVisible(true );
+       int row = jTableFacturas.getSelectedRow();
+        if (row != -1) {
+            opcionCRUD = OpcionesCRUD.ELIMINAR;
+
+            FrmFactura frmFacturasEsc = new FrmFactura(opcionCRUD, obtenerDatos());
+            frmFacturasEsc.setTitle("Eliminar factura");
+            frmFacturasEsc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccionar una fila", "Factura",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
-        
+        // TODO add your handling code here:                                           
+         try {
+       Facturas facturaBusqueda = obtenerDatosFecha();
+            Date fechaFact = (facturaBusqueda!= null)? facturaBusqueda.getFechaFactura() : null;
+
+            Facturas facturasSearch = new Facturas();
+            facturasSearch.setFechaFactura(fechaFact);
+    
+    ArrayList<Facturas> pedidos = FacturasDAL.buscar(facturasSearch);
+    
+    String[] columnas = {"FacturaID", "Fecha Factura", "ClienteID", "Cliente", "Total"};
+    Object[][] datos = new Object[pedidos.size()][5];
+    for (int i = 0; i < pedidos.size(); i++) {
+        Facturas item = pedidos.get(i);
+        datos[i][0] = item.getFacturaID();
+        datos[i][1] = item.getFechaFactura();
+        datos[i][2] = item.getClienteID();
+        datos[i][4] = item.getClientes().getNombre();
+        datos[i][3] = item.getTotal();
+    }
+    DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
+    jTableFacturas.setModel(modelTable); 
+         }
+    catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al realizar la búsqueda.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnBuscarActionPerformed
+
+    private void jBtnBuscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarTodosActionPerformed
+         try {
+        ArrayList<Facturas> todasLasFacturas = FacturasDAL.obtenerTodas(); // Método para obtener todos los registros
+
+        // Actualiza el modelo de la tabla (similar a como lo haces en jBtnBuscarActionPerformed)
+        String[] columnas = {"FacturaID", "Fecha Factura", "ClienteID", "Cliente", "Total"};
+        Object[][] datos = new Object[todasLasFacturas.size()][5];
+        for (int i = 0; i < todasLasFacturas.size(); i++) {
+            Facturas item = todasLasFacturas.get(i);
+            datos[i][0] = item.getFacturaID();
+            datos[i][1] = item.getFechaFactura();
+            datos[i][2] = item.getClienteID();
+            datos[i][4] = item.getClientes().getNombre();
+            datos[i][3] = item.getTotal();
+        }
+        DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
+        jTableFacturas.setModel(modelTable); 
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al obtener todas las facturas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jBtnBuscarTodosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,14 +342,15 @@ public class FrmFacturaclienteLec extends javax.swing.JFrame {
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnBuscar;
+    private javax.swing.JButton jBtnBuscarTodos;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnEditar;
     private javax.swing.JButton jBtnEliminar;
     private javax.swing.JButton jBtnIrACrear;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaFact;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableFacturas;
-    private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
 }
